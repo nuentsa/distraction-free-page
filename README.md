@@ -33,5 +33,11 @@ streamlit run streamlit_app.py
 4. Configure the deployment settings and click "Deploy".
 Your application will be deployed as a public app on Streamlit Cloud, allowing you to access it from your mobile phone for instance.
 
+# Run the app as distraction-free on your phone
+1. Install [Fully Kiosk Browser](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en&pli=1) from Google Play Store 
+2. Navigate to the settings and provide the URL of your app as defined in the previous step
+3. Update your text message and Click on Save. The message is now displayed full screen on your phone.
+4. Focus
+
 # License
 This project is licensed under the MIT License.
