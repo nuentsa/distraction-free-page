@@ -1,4 +1,5 @@
 import streamlit as st
+import mongo_serializer
 
 # Initialize session state variables
 if 'text' not in st.session_state:
@@ -8,6 +9,18 @@ if 'edit_mode' not in st.session_state:
 if 'temp_text' not in st.session_state:
     st.session_state.temp_text = ""
 
+mongo_coll = mongo_serializer.get_mongo_collection()
+
+# Function to load the last saved text on app startup
+def load_last_text():
+    last_text = mongo_serializer.load_last_text(mongo_coll)
+    if last_text:
+        st.session_state.text = last_text
+
+# Load the last saved text on app startup
+if not st.session_state.text:
+    load_last_text()
+
 # Save the text and switch to display mode
 def save_text():
     if st.session_state.temp_text.strip() == "":
@@ -15,6 +28,8 @@ def save_text():
     else:
         st.session_state.text = st.session_state.temp_text
         st.session_state.edit_mode = False
+        mongo_serializer.save_text(mongo_coll, st.session_state.temp_text)
+
 
 # Hide Streamlit's default header and footer in display mode
 hide_streamlit_style = """
@@ -42,7 +57,7 @@ if st.session_state.edit_mode:
 # Display mode
 if not st.session_state.edit_mode:
     st.markdown(
-        f"<div style='font-size: 36px; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;'>{st.session_state.text}</div>",
+        f"<div style='font-size: 36px; height: 75vh; display: flex; align-items: center; justify-content: center; text-align: center;'>{st.session_state.text}</div>",
         unsafe_allow_html=True
     )
     if st.button("Edit Your Message"):

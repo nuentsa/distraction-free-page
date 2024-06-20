@@ -1,6 +1,6 @@
 # A Simple Distraction-Free Page with your message
 
-Use this application to display a focus-oriented message in a large format on your screen. Keep &n important reminder or motivational quote visible while you work or when you are attempted to use your phone. 
+Use this application to display a focus-oriented message in a large format on your screen. Keep an important reminder or motivational quote visible while you work or when you are attempted to use your phone. 
 
 # How to Run the Application
 
@@ -8,6 +8,8 @@ Use this application to display a focus-oriented message in a large format on yo
 
 - Python 3.6 or higher
 - Streamlit 1.34 or higher
+- pymongo 4.7.3 or higher (optional)
+ 
 
 ## Installation
 
@@ -17,20 +19,32 @@ Use this application to display a focus-oriented message in a large format on yo
 ## Install the required packages
 
 ```bash
-pip install streamlit
+pip install -r requirements.txt
 ```
+
+## MongoDB Credentials 
+1. The application uses MongoDB to store optionally the message and load it at app startup. This is however optional and you can safely skip this section. 
+2. You can get a free MongoDB server at [MongoDB Atlas](https://cloud.mongodb.com)
+3. Add the credentials of your mongodb instance to .streamlit/secrets.toml 
+```
+# .streamlit/secrets.toml
+[mongo]
+connection_string = mongodb+srv://<username>:<password>@hostname/?retryWrites=true&w=majority&appName=Cluster0
+```
+
 
 ## Running the Application
 Run the following command to start the Streamlit application:
 ```bash
-streamlit run streamlit_app.py
+streamlit run app.py
 ```
 
 # Deploying the Application on Streamlit Cloud
 1. Sign in to your [Streamlit Cloud](https://streamlit.io/cloud) account.
 2. Click on "New app".
-3. Connect your GitHub repository or upload the streamlit_app.py file.
-4. Configure the deployment settings and click "Deploy".
+3. Connect your GitHub repository.
+4. Optional: Provide the connection string to your MongDB instance
+5.click "Deploy".
 Your application will be deployed as a public app on Streamlit Cloud, allowing you to access it from your mobile phone for instance.
 
 # Run the app as distraction-free on your phone
